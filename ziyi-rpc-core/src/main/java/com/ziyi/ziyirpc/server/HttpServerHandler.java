@@ -10,6 +10,7 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 /**
@@ -41,7 +42,11 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
             // 如果请求为 null，直接返回
             if (rpcRequest == null) {
                 rpcResponse.setMessage("rpcRequest is null");
-                doResponse(request, rpcResponse, serializer);
+                try {
+                    doResponse(request, rpcResponse, serializer);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 return;
             }
 
@@ -60,7 +65,11 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
                 rpcResponse.setException(e);
             }
             // 响应
-            doResponse(request, rpcResponse, serializer);
+            try {
+                doResponse(request, rpcResponse, serializer);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
@@ -71,7 +80,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
      * @param rpcResponse
      * @param serializer
      */
-    void doResponse(HttpServerRequest request, RpcResponse rpcResponse, Serializer serializer) {
+    void doResponse(HttpServerRequest request, RpcResponse rpcResponse, Serializer serializer) throws IOException {
         HttpServerResponse httpServerResponse = request.response()
                 .putHeader("content-type", "application/json");
             // 序列化

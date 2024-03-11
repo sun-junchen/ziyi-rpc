@@ -2,6 +2,8 @@ package com.ziyi.example.common.service;
 
 import com.ziyi.example.common.model.User;
 
+import java.io.IOException;
+
 /**
  * 用户服务
  */
@@ -13,7 +15,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    User getUser(User user);
+    User getUser(User user) throws IOException;
 
 
     /**

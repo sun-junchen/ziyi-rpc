@@ -1,0 +1,2 @@
+jdk=com.ziyi.ziyirpc.serializer.JdkSerializer
+hessian=com.ziyi.ziyirpc.serializer.HessianSerializer

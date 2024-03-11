@@ -1,5 +1,7 @@
 package com.ziyi.ziyirpc.serializer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.io.IOException;
 
 /**
@@ -16,7 +18,7 @@ public interface Serializer {
      * @return
      * @throws IOException
      */
-    <T> byte[] serialize(T object);
+    <T> byte[] serialize(T object) throws IOException;
 
     /**
      * 反序列化
@@ -27,5 +29,5 @@ public interface Serializer {
      * @return
      * @throws IOException
      */
-    <T> T deserialize(byte[] bytes, Class<T> type);
+    <T> T deserialize(byte[] bytes, Class<T> type) throws IOException;
 }

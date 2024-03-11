@@ -1,0 +1,3 @@
+json=com.ziyi.ziyirpc.serializer.JsonSerializer
+kryo=com.ziyi.ziyirpc.serializer.KryoSerializer
+hessian=com.ziyi.ziyirpc.serializer.HessianSerializer
